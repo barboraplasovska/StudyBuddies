@@ -21,10 +21,9 @@ The application was built using:
 - **Real-Time Communication**: Socket.IO for chat and messaging functionality.
 - **Databases**:
   - **MariaDB**: Manages relational data like user profiles and event schedules.
-  - **MongoDB**: Handles unstructured data and additional storage needs.
+  - **MongoDB**: Handles chat messages data.
 - **Monitoring**: Prometheus for metrics gathering and Grafana for visualization.
-- **Deployment**: Microsoft Azure for hosting backend services.
-- **Logging**: Sentry for error tracking and monitoring.
+- **Deployment**: Microsoft Azure for hosting backend services and Docker for development purpose.
 
 ## Architecture
 
@@ -46,7 +45,7 @@ The backend is implemented using **Node.js** and **TypeScript** and is divided i
 ### **3. Databases**
 The backend uses a dual-database system:
 - **MariaDB**: Manages relational data (e.g., user profiles, event schedules).
-- **MongoDB**: Handles unstructured data and additional storage needs.
+- **MongoDB**: Handles chat messages data.
 
 ### **4. Real-Time Communication**
 - **Socket.IO** enables real-time messaging functionality between users:
@@ -59,7 +58,6 @@ The backend uses a dual-database system:
 
 ### **6. Deployment**
 - The backend APIs are deployed on **Microsoft Azure** for scalability and availability.
-- **Sentry** is used for logging and error monitoring to ensure smooth application performance.
 
 ## Team Contributions
 

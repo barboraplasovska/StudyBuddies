@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="5" failures="0" errors="0" time="2.713">
+  <testsuite name="MessageRoutes" errors="0" failures="0" skipped="0" timestamp="2024-11-11T22:55:59" time="2.668" tests="5">
+    <testcase classname="MessageRoutes GetPaginated should return status code 403 when no authorization headers are provided" name="MessageRoutes GetPaginated should return status code 403 when no authorization headers are provided" time="0.03">
+    </testcase>
+    <testcase classname="MessageRoutes GetPaginated should return status code 403 when authorization headers does not start with Bearer" name="MessageRoutes GetPaginated should return status code 403 when authorization headers does not start with Bearer" time="0.01">
+    </testcase>
+    <testcase classname="MessageRoutes GetPaginated should return status code 403 when an incorrect JWT is provided into auth headers" name="MessageRoutes GetPaginated should return status code 403 when an incorrect JWT is provided into auth headers" time="0.013">
+    </testcase>
+    <testcase classname="MessageRoutes GetPaginated should return status code 403 with a well formed JWT but with invalid inner elements" name="MessageRoutes GetPaginated should return status code 403 with a well formed JWT but with invalid inner elements" time="0.01">
+    </testcase>
+    <testcase classname="MessageRoutes GetPaginated should return too many requests" name="MessageRoutes GetPaginated should return too many requests" time="0.856">
+    </testcase>
+  </testsuite>
+</testsuites>

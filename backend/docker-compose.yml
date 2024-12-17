@@ -1,0 +1,188 @@
+services:
+  mariadb:
+    build:
+      context: mariadb
+      dockerfile: Dockerfile
+    container_name: StudyBuddies_MariaDB
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    command: --bind-address=0.0.0.0
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - maria
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p${MARIADB_ROOT_PASSWORD}",
+        ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  mongodb:
+    build:
+      context: mongo
+      dockerfile: Dockerfile
+    container_name: StudyBuddies_MongoDB
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongodb:/data/db
+    networks:
+      - mongo
+    profiles:
+      - dev-chat
+      - dev
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mongo",
+          "--host",
+          "127.0.0.1",
+          "--eval",
+          "db.adminCommand('ping').ok",
+        ]
+      start_period: 15s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  chat-dev:
+    profiles:
+      - dev-chat
+      - dev
+    build:
+      context: chat/
+      dockerfile: Dockerfile
+      target: dev
+    container_name: StudyBuddies_Chat_Dev
+    env_file:
+      - .env
+    ports:
+      - "4001:4001"
+    restart: unless-stopped
+    networks:
+      - mongo
+      - maria
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    volumes:
+      - ./chat:/chat/
+      - /chat/node_modules/
+  server-dev:
+    profiles:
+      - dev
+      - dev-server
+      - devops
+    build:
+      context: server/
+      dockerfile: Dockerfile
+      target: dev
+    container_name: StudyBuddies_Server_Dev
+    env_file:
+      - .env
+    ports:
+      - "4000:4000"
+    restart: unless-stopped
+    networks:
+      - maria
+      - redis
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./server:/server/
+      - /server/node_modules/
+  server-prod:
+    profiles:
+      - prod
+    build:
+      context: server/
+      dockerfile: Dockerfile
+    container_name: StudyBuddies_Server
+    env_file:
+      - .env
+    ports:
+      - "4000:4000"
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - maria
+      - redis
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    profiles:
+      - devops
+    volumes:
+      - ./prometheus:/etc/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    depends_on:
+      - server-dev
+    networks:
+      - maria
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    profiles:
+      - devops
+    depends_on:
+      - prometheus
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - maria
+  redis:
+    image: redis:alpine
+    container_name: StudyBuddies_Redis
+    profiles:
+      - dev
+      - dev-server
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  maria:
+    driver: bridge
+  redis:
+    driver: bridge
+  mongo:
+    driver: bridge
+
+volumes:
+  ignore:
+  grafana-storage:

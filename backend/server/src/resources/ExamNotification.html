@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Reminder</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background-color: #333333;
+            padding: 20px;
+            text-align: center;
+        }
+        .header img {
+            max-width: 120px;
+        }
+        .banner {
+            background-image: url('https://s39613.pcdn.co/wp-content/uploads/2023/10/adult-writing-in-the-classroom.jpg_s1024x1024wisk20cWZ9Zv8MPhqo4F4nRhkqGaK9uohN6Z7PE2aXfZyxDdoc.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 50px 20px;
+            position: relative;
+        }
+        .banner-content {
+            position: relative;
+            z-index: 1;
+            color: #ffffff;
+        }
+        .banner-content h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+        .banner-content p {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 0;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .countdown div {
+            margin: 0 10px;
+            text-align: center;
+        }
+        .countdown div span {
+            display: block;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .content {
+            padding: 20px;
+            color: #555555;
+            text-align: center;
+        }
+        .content h2 {
+            color: #333333;
+        }
+        .details {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-top: 1px solid #dddddd;
+            border-bottom: 1px solid #dddddd;
+        }
+        .details div {
+            width: 48%;
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #777777;
+        }
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="cid:sbuddieslogo" alt="Study Buddies Logo">
+    </div>
+    <div class="banner">
+        <div class="banner-content">
+            <h1>[Exam Name]</h1>
+        </div>
+    </div>
+    <div class="content">
+        <h2>Dear [User's Name],</h2>
+        <p>This is a friendly reminder that you have an exam coming up in less than one day:</p>
+        <p>[Exam Details]</p>
+    </div>
+    <div class="details">
+        <div>
+            <h3>When</h3>
+            <p>[Exam Date and Time]</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

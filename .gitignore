@@ -1,0 +1,14 @@
+#### Backend ####
+node_modules/
+build/
+data/
+.idea/
+backend/server/test-results.xml
+coverage/
+
+#### Frontend ####
+.DS_Store
+
+.vs/
+.vscode/
+.env

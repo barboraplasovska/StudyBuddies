@@ -72,7 +72,7 @@ The backend uses a dual-database system:
 
 ## Acknowledgments
 
-We thank our professors and peers for their support and feedback throughout this project. A special thanks to [organization/university] for providing the resources to bring StudyBuddies to life.
+We thank our professors and peers for their support and feedback throughout this project. A special thanks to EPITA for providing the resources to bring StudyBuddies to life.
 
 ## License
 
